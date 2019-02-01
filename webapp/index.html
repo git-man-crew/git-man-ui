@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+    <title>Gitman Registration</title>
+
+    <!-- firebase sdk -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <script src="https://www.gstatic.com/firebasejs/ui/3.5.2/firebase-ui-auth__de.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/3.5.2/firebase-ui-auth.css" />
+
+    <!-- ui5 bootstrap -->
+		<script id="sap-ui-bootstrap"
+			src="../../resources/sap-ui-core.js"
+			data-sap-ui-async="true"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-resourceroots='{"gitman.web": "./"}'>
+		</script>
+    <script type="text/javascript">
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyBlUs8ph_sUr5Ia00KIUePAaHnhaOFySgY",
+        authDomain: "gitman-web.firebaseapp.com",
+        databaseURL: "https://gitman-web.firebaseio.com",
+        projectId: "gitman-web",
+        storageBucket: "gitman-web.appspot.com",
+        messagingSenderId: "544541772953"
+      };
+      firebase.initializeApp(config);
+      var CLIENT_ID = '544541772953-s9ni4ufculijpcg1bs4o4d1c8i2kj6en.apps.googleusercontent.com';
+
+
+      // Initialize the FirebaseUI Widget using Firebase.
+      var ui = new firebaseui.auth.AuthUI(firebase.auth());
+      // The start method will wait until the DOM is loaded.
+      ui.start('#firebaseui-auth-container',  {    
+          callbacks: {
+            signInSuccess: function(currentUser, credential, redirectUrl) {
+              //start ui5
+              sap.ui.getCore().attachInit(function() {
+                new sap.m.Shell({
+                  app: new sap.ui.core.ComponentContainer({
+                    height : "100%",
+                    name : "gitman.web"
+                  })
+                }).placeAt("content");
+              });
+
+              //hide auth
+              document.getElementById('firebaseui-auth-container').style.display = 'none';
+
+              return false;
+            },
+            uiShown: function() {
+            }
+          },
+          signInOptions: [
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID
+          ]
+        }
+      
+      );
+
+    </script>
+  </head>
+  <body class="sapUiBody" id="content">
+    <!-- The surrounding HTML is left untouched by FirebaseUI.
+         Your app may use that space for branding, controls and other customizations.-->
+    <div id="firebaseui-auth-container"></div>
+  </body>
+</html>
