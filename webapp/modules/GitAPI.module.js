@@ -10,7 +10,7 @@ sap.ui.define([
 		}
 	});
 
-	GitAPI.prototype.getSupportedPlatforms = function() {
+	GitAPI.prototype.getSupportedPlatforms = async function () {
 		return fetch(`${this.sServiceUrl}/supportedPlatform`)
 			.then((response) => {
 				return response.json();

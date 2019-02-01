@@ -1,7 +1,8 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"gitman/web/modules/GitAPI.module"
-], function (Controller, GitAPI) {
+	"gitman/web/modules/GitAPI.module",
+	"sap/ui/model/json/JSONModel"
+], function (Controller, GitAPI, JSONModel) {
 	"use strict";
 
 	return Controller.extend("gitman.web.controller.SupportedPlatform", {
@@ -12,19 +13,15 @@ sap.ui.define([
 		 * @memberOf gitman.web.view.SupportedPlatform
 		 */
 		onInit: function () {
-			//test
-			this.oGitAPI = new GitAPI();
-			this.oGitAPI
-				.getSupportedPlatforms()
-				.then(aPlatform=>{
-					debugger;
-				})
-				.catch(error=>{
-					//todo:
-					debugger;
-				});
-			
+			this.setupTable();
 		},
+
+		setupTable: async function(){
+			this.oGitAPI = new GitAPI();
+			let aPlatforms = await this.oGitAPI.getSupportedPlatforms();
+			let oPlatformModel = new JSONModel(aPlatforms.supportedPlatforms);
+			this.getView().setModel(oPlatformModel, 'supportedPlatforms');
+		}
 
 		/**
 		 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered

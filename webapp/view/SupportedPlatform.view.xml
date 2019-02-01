@@ -4,11 +4,11 @@
 		<pages>
 			<Page title="{i18n>spPageTitle}">
 				<content>
-					<Table id="supportedPlatformTable" headerText="{i18n>spTableHeaderText}">
+					<Table id="supportedPlatformTable" headerText="{i18n>spTableHeaderText}" items="{supportedPlatforms>/}">
 						<items>
 							<ColumnListItem type="Active" id="item0" busyIndicatorDelay="1">
 								<cells>
-									<Text text="Row 1 Cell 1" id="text0"/>
+									<Text text="{supportedPlatforms>}"/>
 								</cells>
 							</ColumnListItem>
 						</items>
