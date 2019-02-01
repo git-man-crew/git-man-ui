@@ -32,17 +32,12 @@
         messagingSenderId: "544541772953"
       };
       firebase.initializeApp(config);
-      var CLIENT_ID = '544541772953-s9ni4ufculijpcg1bs4o4d1c8i2kj6en.apps.googleusercontent.com';
 
-
-      // Initialize the FirebaseUI Widget using Firebase.
-      var ui = new firebaseui.auth.AuthUI(firebase.auth());
-      // The start method will wait until the DOM is loaded.
-      ui.start('#firebaseui-auth-container',  {    
-          callbacks: {
-            signInSuccess: function(currentUser, credential, redirectUrl) {
-              //start ui5
-              sap.ui.getCore().attachInit(function() {
+      //check user status
+		firebase.auth().onAuthStateChanged(function (user) {
+			if (user) {
+				//start ui5
+        sap.ui.getCore().attachInit(function() {
                 new sap.m.Shell({
                   app: new sap.ui.core.ComponentContainer({
                     height : "100%",
@@ -50,22 +45,39 @@
                   })
                 }).placeAt("content");
               });
+			} else {
+        var CLIENT_ID = '544541772953-s9ni4ufculijpcg1bs4o4d1c8i2kj6en.apps.googleusercontent.com';
 
-              //hide auth
-              document.getElementById('firebaseui-auth-container').style.display = 'none';
-
-              return false;
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container',  {
+            callbacks: {
+              signInFlow: 'popup',
+              signInSuccess: function(authResult, redirectUrl) {
+                //start ui5
+                sap.ui.getCore().attachInit(function() {
+                  new sap.m.Shell({
+                    app: new sap.ui.core.ComponentContainer({
+                      height : "100%",
+                      name : "gitman.web"
+                    })
+                  }).placeAt("content");
+                });
+                // hide auth
+                document.getElementById('firebaseui-auth-container').style.display = 'none';
+                return false;
+              },
+              uiShown: function() {
+              }
             },
-            uiShown: function() {
-            }
-          },
-          signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID
-          ]
-        }
-      
-      );
-
+            signInOptions: [
+              firebase.auth.GoogleAuthProvider.PROVIDER_ID
+            ]
+          }
+        );
+			}
+    });
     </script>
   </head>
   <body class="sapUiBody" id="content">
