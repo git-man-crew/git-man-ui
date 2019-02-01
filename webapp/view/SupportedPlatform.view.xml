@@ -1,9 +1,26 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="gitman.web.controller.SupportedPlatform"
-	xmlns:html="http://www.w3.org/1999/xhtml">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:html="http://www.w3.org/1999/xhtml"
+	controllerName="gitman.web.controller.SupportedPlatform">
 	<App>
 		<pages>
 			<Page title="{i18n>spPageTitle}">
-				<content></content>
+				<content>
+					<Table id="supportedPlatformTable" headerText="{i18n>spTableHeaderText}">
+						<items>
+							<ColumnListItem type="Active" id="item0" busyIndicatorDelay="1">
+								<cells>
+									<Text text="Row 1 Cell 1" id="text0"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+						<columns>
+							<Column>
+								<header>
+									<Label text="{i18n>spNameColumnText}"/>
+								</header>
+							</Column>
+						</columns>
+					</Table>
+				</content>
 			</Page>
 		</pages>
 	</App>

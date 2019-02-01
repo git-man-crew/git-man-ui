@@ -1,6 +1,7 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"sap/ui/core/mvc/Controller",
+	"gitman/web/modules/GitAPI.module"
+], function (Controller, GitAPI) {
 	"use strict";
 
 	return Controller.extend("gitman.web.controller.SupportedPlatform", {
@@ -11,7 +12,10 @@ sap.ui.define([
 		 * @memberOf gitman.web.view.SupportedPlatform
 		 */
 		onInit: function () {
-
+			//test
+			debugger;
+			this.oGitAPI = new GitAPI();
+			
 		},
 
 		/**
