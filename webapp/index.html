@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta charset="UTF-8">
-    <title>Gitman Registration</title>
+    <title>Gitman</title>
 
     <!-- firebase sdk -->
     <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
@@ -20,24 +20,24 @@
 			data-sap-ui-theme="sap_belize"
 			data-sap-ui-compatVersion="edge"
 			data-sap-ui-resourceroots='{"gitman.web": "./"}'>
-		</script>
+    </script>
+    
     <script type="text/javascript">
       // Initialize Firebase
-      var config = {
+      firebase.initializeApp({
         apiKey: "AIzaSyBlUs8ph_sUr5Ia00KIUePAaHnhaOFySgY",
         authDomain: "gitman-web.firebaseapp.com",
         databaseURL: "https://gitman-web.firebaseio.com",
         projectId: "gitman-web",
         storageBucket: "gitman-web.appspot.com",
         messagingSenderId: "544541772953"
-      };
-      firebase.initializeApp(config);
+      });
 
       //check user status
-		firebase.auth().onAuthStateChanged(function (user) {
+		firebase.auth().onAuthStateChanged( (user)=> {
 			if (user) {
 				//start ui5
-        sap.ui.getCore().attachInit(function() {
+        sap.ui.getCore().attachInit(()=> {
                 new sap.m.Shell({
                   app: new sap.ui.core.ComponentContainer({
                     height : "100%",
@@ -46,17 +46,16 @@
                 }).placeAt("content");
               });
 			} else {
-        var CLIENT_ID = '544541772953-s9ni4ufculijpcg1bs4o4d1c8i2kj6en.apps.googleusercontent.com';
-
         // Initialize the FirebaseUI Widget using Firebase.
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        let ui = new firebaseui.auth.AuthUI(firebase.auth());
+
         // The start method will wait until the DOM is loaded.
         ui.start('#firebaseui-auth-container',  {
             callbacks: {
               signInFlow: 'popup',
-              signInSuccess: function(authResult, redirectUrl) {
+              signInSuccess: (authResult, redirectUrl) => {
                 //start ui5
-                sap.ui.getCore().attachInit(function() {
+                sap.ui.getCore().attachInit(() =>{
                   new sap.m.Shell({
                     app: new sap.ui.core.ComponentContainer({
                       height : "100%",
@@ -68,7 +67,7 @@
                 document.getElementById('firebaseui-auth-container').style.display = 'none';
                 return false;
               },
-              uiShown: function() {
+              uiShown: ()=> {
               }
             },
             signInOptions: [
@@ -81,8 +80,6 @@
     </script>
   </head>
   <body class="sapUiBody" id="content">
-    <!-- The surrounding HTML is left untouched by FirebaseUI.
-         Your app may use that space for branding, controls and other customizations.-->
     <div id="firebaseui-auth-container"></div>
   </body>
 </html>
