@@ -13,8 +13,16 @@ sap.ui.define([
 		 */
 		onInit: function () {
 			//test
-			debugger;
 			this.oGitAPI = new GitAPI();
+			this.oGitAPI
+				.getSupportedPlatforms()
+				.then(aPlatform=>{
+					debugger;
+				})
+				.catch(error=>{
+					//todo:
+					debugger;
+				});
 			
 		},
 
