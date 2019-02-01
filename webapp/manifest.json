@@ -14,7 +14,6 @@
 			"version": "1.38.11"
 		}
 	},
-
 	"sap.ui": {
 		"technology": "UI5",
 		"icons": {
@@ -33,10 +32,8 @@
 		"supportedThemes": [
 			"sap_hcb",
 			"sap_belize"
-
 		]
 	},
-
 	"sap.ui5": {
 		"rootView": {
 			"viewName": "gitman.web.view.App",
@@ -63,9 +60,11 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -74,20 +73,22 @@
 				"async": true,
 				"viewPath": "gitman.web.view",
 				"controlAggregation": "pages",
-				"controlId": "idAppControl",
+				"controlId": "gitman",
 				"clearControlAggregation": false
 			},
-			"routes": [{
-				"name": "RouteApp",
-				"pattern": "RouteApp",
-				"target": ["TargetApp"]
-			}],
+			"routes": [
+				{
+					"name": "SupportedPlatform",
+					"pattern": "",
+					"target": [
+						"SupportedPlatform"
+					]
+				}
+			],
 			"targets": {
-				"TargetApp": {
+				"SupportedPlatform": {
 					"viewType": "XML",
-					"transition": "slide",
-					"clearControlAggregation": false,
-					"viewName": "App"
+					"viewName": "SupportedPlatform"
 				}
 			}
 		}
