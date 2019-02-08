@@ -56,12 +56,33 @@
               signInSuccess: (authResult, redirectUrl) => {
                 //start ui5
                 sap.ui.getCore().attachInit(() =>{
+
+                  // get token from api
+                  //set fb uid
+                  sap.ui.getCore().setModel(new sap.ui.model.json.JSONModel({fbUid: authResult.uid}, 'fb'));
+
+                  fetch('http://localhost:3000/auth/token', {
+                      method: "GET", 
+                      headers: {
+                          "Fb-Authorization": authResult.uid,
+                      }
+                  })
+                    .then(function(response) {
+                      if (response.status === '200'){
+                        //validated/logged in
+                      }else{
+                        sap.m.MessageToast.show("Login error");
+                      }
+                    });
+
                   new sap.m.Shell({
                     app: new sap.ui.core.ComponentContainer({
                       height : "100%",
                       name : "gitman.web"
                     })
                   }).placeAt("content");
+
+                  
                 });
                 // hide auth
                 document.getElementById('firebaseui-auth-container').style.display = 'none';
