@@ -77,3 +77,6 @@ APIExternalProducer.js
 
 
 dist/
+AppVariantPreviewPayload.zip
+mergedManifestDescriptor.json
+/mta_archives/
